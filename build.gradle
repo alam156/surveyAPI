@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'mysql:mysql-connector-java:8.0.33'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    compileOnly 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'io.jsonwebtoken:jjwt:0.2'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    //implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+
+tasks.withType(Jar) {
+    from('src/main/resources') {
+        //include 'config.cfg'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    /*manifest {
+        attributes["Main-Class"] = "com.example.CertificateExtractor.CertificateExtractorApplication"
+    }*/
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
